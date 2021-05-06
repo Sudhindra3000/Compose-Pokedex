@@ -27,8 +27,7 @@ class DetailsViewModel @AssistedInject constructor(
     }
 
     fun deleteFromFavourites() = launch {
-        val id = favouritePokemonRepository.getPrimaryKeyForPokemonId(pokemon.pokemonId, this)
-        if (id != null) favouritePokemonRepository.delete(id, pokemon)
+        favouritePokemonRepository.delete(pokemon, this)
     }
 
     private val _evolutionChainState: MutableStateFlow<EvolutionChainState> =

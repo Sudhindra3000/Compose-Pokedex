@@ -15,14 +15,19 @@ class FavouritePokemonRepository @Inject constructor(
 
     suspend fun update(pokemon: Pokemon) = dao.update(FavouritePokemon(pokemon = pokemon))
 
-    suspend fun delete(id: Int, pokemon: Pokemon) = dao.delete(FavouritePokemon(id, pokemon))
+    private suspend fun delete(id: Int, pokemon: Pokemon) = dao.delete(FavouritePokemon(id, pokemon))
+
+    suspend fun delete(pokemon: Pokemon, scope: CoroutineScope) {
+        val id = getPrimaryKeyForPokemonId(pokemon.pokemonId, scope)
+        if (id != null) delete(id, pokemon)
+    }
 
     fun getFavouritePokemon() = dao.getFavouritePokemon()
 
     fun getFavouritePokemonIds() =
         dao.getFavouritePokemon().map { it.map { favourite -> favourite.pokemon.pokemonId } }
 
-    suspend fun getPrimaryKeyForPokemonId(pokemonId: Int, scope: CoroutineScope) = dao
+    private suspend fun getPrimaryKeyForPokemonId(pokemonId: Int, scope: CoroutineScope) = dao
         .getFavouritePokemon()
         .map { it.find { favourite -> favourite.pokemon.pokemonId == pokemonId }?.id }
         .stateIn(scope)

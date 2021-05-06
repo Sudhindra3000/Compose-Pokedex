@@ -27,7 +27,6 @@ class PokemonViewModel @Inject constructor(
     }
 
     fun deleteFromFavourites(pokemon: Pokemon) = launch {
-        val id = favouritePokemonRepository.getPrimaryKeyForPokemonId(pokemon.pokemonId, this)
-        if (id != null) favouritePokemonRepository.delete(id, pokemon)
+        favouritePokemonRepository.delete(pokemon, this)
     }
 }
