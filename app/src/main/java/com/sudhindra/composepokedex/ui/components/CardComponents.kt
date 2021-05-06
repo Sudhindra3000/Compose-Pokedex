@@ -19,6 +19,8 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -30,11 +32,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.coil.rememberCoilPainter
-import com.sudhindra.composepokedex.R
 import com.sudhindra.composepokedex.models.pokemon.Pokemon
 import com.sudhindra.composepokedex.utils.generatePalette
 import com.sudhindra.composepokedex.utils.sharePokemon
@@ -45,7 +45,9 @@ import kotlinx.coroutines.launch
 fun PokemonCard(
     pokemon: Pokemon,
     onClick: () -> Unit,
-    onFavouriteClick: () -> Unit
+    inFavourites: Boolean,
+    onFavouriteClick: () -> Unit,
+    onUnFavouriteClick: () -> Unit
 ) {
     var drawable: Drawable? by remember { mutableStateOf(null) }
     val defaultDominantColor = MaterialTheme.colors.surface
@@ -103,9 +105,9 @@ fun PokemonCard(
                 PokemonTypesChipGroup(pokemon.types)
             }
             Column {
-                IconButton(onClick = onFavouriteClick) {
+                IconButton(onClick = if (!inFavourites) onFavouriteClick else onUnFavouriteClick) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_favourite),
+                        imageVector = if (!inFavourites) Icons.Default.FavoriteBorder else Icons.Default.Favorite,
                         contentDescription = "Back Button"
                     )
                 }

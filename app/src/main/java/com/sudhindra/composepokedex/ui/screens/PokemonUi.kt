@@ -2,6 +2,8 @@ package com.sudhindra.composepokedex.ui.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltNavGraphViewModel
@@ -27,6 +29,8 @@ fun PokemonUi(
 ) {
     val context = LocalContext.current
 
+    val favouritePokemonIds by pokemonViewModel.favouritePokemonIds.collectAsState(listOf())
+
     val lazyPagingItems = when (pokemonScreenType) {
         PokemonScreenType.ALL_POKEMON.toString() -> pokemonViewModel.allPokemonPager.flow.collectAsLazyPagingItems()
         PokemonScreenType.TYPED_POKEMON.toString() -> pokemonViewModel.getTypedPokemon(typeRegionId!!).flow.collectAsLazyPagingItems()
@@ -37,6 +41,8 @@ fun PokemonUi(
     }
 
     LazyPagingColumn(Modifier.fillMaxSize(), lazyPagingItems) { pokemon ->
+        val inFavourites =
+            if (favouritePokemonIds.isEmpty()) false else favouritePokemonIds.contains(pokemon.pokemonId)
         PokemonCard(
             pokemon = pokemon,
             onClick = {
@@ -44,9 +50,9 @@ fun PokemonUi(
                 intent.putExtra(BundleKeys.POKEMON, pokemon)
                 context.startActivity(intent)
             },
-            onFavouriteClick = {
-
-            }
+            inFavourites = inFavourites,
+            onFavouriteClick = { pokemonViewModel.insertIntoFavourites(pokemon) },
+            onUnFavouriteClick = { pokemonViewModel.deleteFromFavourites(pokemon) }
         )
     }
 }

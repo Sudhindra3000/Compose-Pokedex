@@ -2,7 +2,9 @@ package com.sudhindra.composepokedex.room
 
 import com.sudhindra.composepokedex.models.pokemon.Pokemon
 import com.sudhindra.composepokedex.room.models.FavouritePokemon
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 class FavouritePokemonRepository @Inject constructor(
@@ -13,10 +15,15 @@ class FavouritePokemonRepository @Inject constructor(
 
     suspend fun update(pokemon: Pokemon) = dao.update(FavouritePokemon(pokemon = pokemon))
 
-    suspend fun delete(pokemon: Pokemon) = dao.delete(FavouritePokemon(pokemon = pokemon))
+    suspend fun delete(id: Int, pokemon: Pokemon) = dao.delete(FavouritePokemon(id, pokemon))
 
     fun getFavouritePokemon() = dao.getFavouritePokemon()
 
     fun getFavouritePokemonIds() =
         dao.getFavouritePokemon().map { it.map { favourite -> favourite.pokemon.pokemonId } }
+
+    suspend fun getPrimaryKeyForPokemonId(pokemonId: Int, scope: CoroutineScope) = dao.getFavouritePokemon()
+        .map { it.find { favourite -> favourite.pokemon.pokemonId == pokemonId }?.id }
+        .stateIn(scope)
+        .value
 }

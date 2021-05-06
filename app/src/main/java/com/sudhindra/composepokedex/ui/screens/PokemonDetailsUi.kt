@@ -24,6 +24,7 @@ import androidx.compose.material.Tab
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -39,12 +40,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltNavGraphViewModel
-import com.sudhindra.composepokedex.R
 import com.sudhindra.composepokedex.models.pokemon.Pokemon
 import com.sudhindra.composepokedex.models.pokemon.PokemonSpecies
 import com.sudhindra.composepokedex.ui.components.BackButton
@@ -77,7 +76,7 @@ fun DetailsAppBar(
         actions = {
             IconButton(onClick = {}) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_favourite),
+                    imageVector = Icons.Default.FavoriteBorder,
                     contentDescription = "Back Button"
                 )
             }
