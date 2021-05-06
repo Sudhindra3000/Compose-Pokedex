@@ -1,4 +1,4 @@
-package com.sudhindra.composepokedex.ui.components.pokemonDetails
+package com.sudhindra.composepokedex.ui.components.pokemonDetails.subinfo
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

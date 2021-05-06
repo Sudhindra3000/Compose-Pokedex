@@ -45,9 +45,7 @@ fun MainUi() {
             ) { backStackEntry ->
                 PokemonUi(
                     pokemonScreenType = backStackEntry.arguments?.getString("pokemonScreenType"),
-                    typeRegionId = backStackEntry.arguments?.getInt("typeRegionId"),
-                    onFavouriteClick = {},
-                    onShareClick = {}
+                    typeRegionId = backStackEntry.arguments?.getInt("typeRegionId")
                 )
             }
             composable(Route.Items.route) { ItemsUi() }

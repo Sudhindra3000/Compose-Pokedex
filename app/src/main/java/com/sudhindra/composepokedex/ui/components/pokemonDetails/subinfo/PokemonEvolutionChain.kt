@@ -1,4 +1,4 @@
-package com.sudhindra.composepokedex.ui.components.pokemonDetails
+package com.sudhindra.composepokedex.ui.components.pokemonDetails.subinfo
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
