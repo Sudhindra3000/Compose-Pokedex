@@ -13,7 +13,6 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
 class DetailsViewModel @AssistedInject constructor(
     private val api: PokeApi,
@@ -21,8 +20,16 @@ class DetailsViewModel @AssistedInject constructor(
     @Assisted val pokemon: Pokemon
 ) : ViewModel() {
 
-    private val _inFavourites = MutableStateFlow(false)
-    val inFavourites = _inFavourites.asStateFlow()
+    val inFavourites = favouritePokemonRepository.pokemonIsInFavourites(pokemon.pokemonId)
+
+    fun insertIntoFavourites() = launch {
+        favouritePokemonRepository.insert(pokemon)
+    }
+
+    fun deleteFromFavourites() = launch {
+        val id = favouritePokemonRepository.getPrimaryKeyForPokemonId(pokemon.pokemonId, this)
+        if (id != null) favouritePokemonRepository.delete(id, pokemon)
+    }
 
     private val _evolutionChainState: MutableStateFlow<EvolutionChainState> =
         MutableStateFlow(EvolutionChainState.Loading)

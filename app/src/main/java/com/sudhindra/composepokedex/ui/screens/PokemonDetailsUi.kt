@@ -24,6 +24,7 @@ import androidx.compose.material.Tab
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
@@ -63,7 +64,10 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun DetailsAppBar(
-    onShareClick: () -> Unit
+    inFavourites: Boolean,
+    onShareClick: () -> Unit,
+    onFavouriteClick: () -> Unit,
+    onUnFavouriteClick: () -> Unit
 ) {
     TopAppBar(
         title = {},
@@ -73,9 +77,9 @@ fun DetailsAppBar(
             BackButton()
         },
         actions = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = if (!inFavourites) onFavouriteClick else onUnFavouriteClick) {
                 Icon(
-                    imageVector = Icons.Default.FavoriteBorder,
+                    imageVector = if (!inFavourites) Icons.Default.FavoriteBorder else Icons.Default.Favorite,
                     contentDescription = "Back Button"
                 )
             }
@@ -105,6 +109,7 @@ fun PokemonDetailsUi(
     val isDark = isSystemInDarkTheme()
 
     val pokemon = viewModel.pokemon
+    val inFavourites by viewModel.inFavourites.collectAsState(false)
 
     LaunchedEffect(Unit) {
         viewModel.getEvolutionChain(pokemon.pokemonId)
@@ -112,9 +117,14 @@ fun PokemonDetailsUi(
 
     Scaffold(
         topBar = {
-            DetailsAppBar(onShareClick = {
-                drawable?.let { context.sharePokemon(pokemon, it) }
-            })
+            DetailsAppBar(
+                inFavourites = inFavourites,
+                onShareClick = {
+                    drawable?.let { context.sharePokemon(pokemon, it) }
+                },
+                onFavouriteClick = { viewModel.insertIntoFavourites() },
+                onUnFavouriteClick = { viewModel.deleteFromFavourites() }
+            )
         }
     ) {
         Column(

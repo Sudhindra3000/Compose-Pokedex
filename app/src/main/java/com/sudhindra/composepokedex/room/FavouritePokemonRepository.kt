@@ -22,8 +22,12 @@ class FavouritePokemonRepository @Inject constructor(
     fun getFavouritePokemonIds() =
         dao.getFavouritePokemon().map { it.map { favourite -> favourite.pokemon.pokemonId } }
 
-    suspend fun getPrimaryKeyForPokemonId(pokemonId: Int, scope: CoroutineScope) = dao.getFavouritePokemon()
+    suspend fun getPrimaryKeyForPokemonId(pokemonId: Int, scope: CoroutineScope) = dao
+        .getFavouritePokemon()
         .map { it.find { favourite -> favourite.pokemon.pokemonId == pokemonId }?.id }
         .stateIn(scope)
         .value
+
+    fun pokemonIsInFavourites(pokemonId: Int) = dao.getFavouritePokemon()
+        .map { it.find { favourite -> favourite.pokemon.pokemonId == pokemonId } != null }
 }
