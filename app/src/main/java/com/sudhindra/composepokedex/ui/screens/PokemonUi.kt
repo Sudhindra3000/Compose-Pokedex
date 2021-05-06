@@ -8,8 +8,8 @@ import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.sudhindra.composepokedex.activities.DetailsActivity
 import com.sudhindra.composepokedex.constants.BundleKeys
-import com.sudhindra.composepokedex.ui.paging.LazyPagingColumn
 import com.sudhindra.composepokedex.ui.components.PokemonCard
+import com.sudhindra.composepokedex.ui.paging.LazyPagingColumn
 import com.sudhindra.composepokedex.utils.createIntent
 import com.sudhindra.composepokedex.viemodel.pokemon.PokemonViewModel
 
@@ -24,8 +24,6 @@ fun PokemonUi(
     pokemonViewModel: PokemonViewModel = hiltNavGraphViewModel(),
     pokemonScreenType: String? = null,
     typeRegionId: Int? = null,
-    onFavouriteClick: () -> Unit,
-    onShareClick: () -> Unit
 ) {
     val context = LocalContext.current
 
@@ -46,8 +44,9 @@ fun PokemonUi(
                 intent.putExtra(BundleKeys.POKEMON, pokemon)
                 context.startActivity(intent)
             },
-            onFavouriteClick,
-            onShareClick
+            onFavouriteClick = {
+
+            }
         )
     }
 }

@@ -45,8 +45,7 @@ import kotlinx.coroutines.launch
 fun PokemonCard(
     pokemon: Pokemon,
     onClick: () -> Unit,
-    onFavouriteClick: () -> Unit,
-    onShareClick: () -> Unit
+    onFavouriteClick: () -> Unit
 ) {
     var drawable: Drawable? by remember { mutableStateOf(null) }
     val defaultDominantColor = MaterialTheme.colors.surface
