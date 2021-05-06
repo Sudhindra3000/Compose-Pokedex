@@ -1,20 +1,28 @@
 package com.sudhindra.composepokedex.viemodel.details
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.sudhindra.composepokedex.api.PokeApi
 import com.sudhindra.composepokedex.models.pokemon.EvolutionChain
 import com.sudhindra.composepokedex.models.pokemon.Pokemon
 import com.sudhindra.composepokedex.models.pokemon.PokemonSpecies
+import com.sudhindra.composepokedex.room.FavouritePokemonRepository
 import com.sudhindra.composepokedex.utils.launch
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import javax.inject.Inject
+import kotlinx.coroutines.flow.asStateFlow
 
-@HiltViewModel
-class DetailsViewModel @Inject constructor(
-    private val api: PokeApi
+class DetailsViewModel @AssistedInject constructor(
+    private val api: PokeApi,
+    private val favouritePokemonRepository: FavouritePokemonRepository,
+    @Assisted val pokemon: Pokemon
 ) : ViewModel() {
+
+    private val _inFavourites = MutableStateFlow(false)
+    val inFavourites = _inFavourites.asStateFlow()
 
     private val _evolutionChainState: MutableStateFlow<EvolutionChainState> =
         MutableStateFlow(EvolutionChainState.Loading)
@@ -44,6 +52,22 @@ class DetailsViewModel @Inject constructor(
             e.printStackTrace()
             _newPokemonState.value =
                 NewPokemonState.Error("Failed to get Info for ${species.formattedName}")
+        }
+    }
+
+    // Assisted Injection Logic
+    @AssistedFactory
+    interface AssistedInjectFactory {
+        fun create(pokemon: Pokemon): DetailsViewModel
+    }
+
+    companion object {
+        fun provideFactory(
+            assistedFactory: AssistedInjectFactory,
+            pokemon: Pokemon
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>) =
+                assistedFactory.create(pokemon) as T
         }
     }
 }

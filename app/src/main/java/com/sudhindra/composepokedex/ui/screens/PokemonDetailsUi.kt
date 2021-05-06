@@ -43,7 +43,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import com.sudhindra.composepokedex.models.pokemon.Pokemon
 import com.sudhindra.composepokedex.models.pokemon.PokemonSpecies
 import com.sudhindra.composepokedex.ui.components.BackButton
@@ -93,8 +92,7 @@ fun DetailsAppBar(
 
 @Composable
 fun PokemonDetailsUi(
-    viewModel: DetailsViewModel = hiltNavGraphViewModel(),
-    pokemon: Pokemon,
+    viewModel: DetailsViewModel,
     onNewPokemonSuccess: (Pokemon) -> Unit
 ) {
     var drawable: Drawable? by remember { mutableStateOf(null) }
@@ -105,6 +103,8 @@ fun PokemonDetailsUi(
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val isDark = isSystemInDarkTheme()
+
+    val pokemon = viewModel.pokemon
 
     LaunchedEffect(Unit) {
         viewModel.getEvolutionChain(pokemon.pokemonId)
