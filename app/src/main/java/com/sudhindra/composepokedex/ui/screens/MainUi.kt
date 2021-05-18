@@ -20,6 +20,7 @@ val allRoutes = listOf(
     Route.Locations,
     Route.Types,
     Route.Regions,
+    Route.Favourites,
 )
 
 @Composable
@@ -52,6 +53,7 @@ fun MainUi() {
             composable(Route.Locations.route) { LocationsUi() }
             composable(Route.Types.route) { TypesUi(navHostController = navController) }
             composable(Route.Regions.route) { RegionsUi(navHostController = navController) }
+            composable(Route.Favourites.route) { FavouritesUi() }
         }
     }
 }
