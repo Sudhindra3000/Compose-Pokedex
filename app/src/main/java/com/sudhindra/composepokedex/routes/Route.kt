@@ -12,4 +12,5 @@ sealed class Route(val route: String, val title: String) {
     object Locations : Route("locations", "Locations")
     object Types : Route("types", "Types")
     object Regions : Route("regions", "Regions")
+    object Favourites : Route("favourites", "Favourites")
 }
