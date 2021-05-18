@@ -15,7 +15,10 @@ class FavouritePokemonRepository @Inject constructor(
 
     suspend fun update(pokemon: Pokemon) = dao.update(FavouritePokemon(pokemon = pokemon))
 
-    private suspend fun delete(id: Int, pokemon: Pokemon) = dao.delete(FavouritePokemon(id, pokemon))
+    suspend fun delete(favouritePokemon: FavouritePokemon) = dao.delete(favouritePokemon)
+
+    suspend fun delete(id: Int, pokemon: Pokemon) =
+        dao.delete(FavouritePokemon(id, pokemon))
 
     suspend fun delete(pokemon: Pokemon, scope: CoroutineScope) {
         val id = getPrimaryKeyForPokemonId(pokemon.pokemonId, scope)
