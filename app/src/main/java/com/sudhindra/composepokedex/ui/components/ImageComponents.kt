@@ -17,6 +17,7 @@ fun PokemonImage(
 ) {
     Image(
         modifier = modifier,
+        // TODO: 5/24/2021 Palette Generation from Drawable is failing from Accompanist Version 0.8.0+ onwards
         painter = rememberCoilPainter(
             request = pokemon.getPokemonSprite(),
             requestBuilder = {

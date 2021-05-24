@@ -4,7 +4,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavType
-import androidx.navigation.compose.KEY_ROUTE
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -27,7 +26,7 @@ val allRoutes = listOf(
 fun MainUi() {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE) ?: Route.Dashboard.route
+    val currentRoute = navBackStackEntry?.destination?.route ?: Route.Dashboard.route
 
     val title: String =
         allRoutes.find { it.route == currentRoute }?.title ?: Route.Dashboard.title

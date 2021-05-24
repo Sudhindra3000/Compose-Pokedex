@@ -18,17 +18,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltNavGraphViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.navigate
-import com.sudhindra.composepokedex.routes.Route
 import com.sudhindra.composepokedex.ui.components.Placeholder
 import com.sudhindra.composepokedex.viemodel.RegionsScreenState
 import com.sudhindra.composepokedex.viemodel.RegionsViewModel
 
 @Composable
 fun RegionsUi(
-    viewModel: RegionsViewModel = hiltNavGraphViewModel(),
+    viewModel: RegionsViewModel = hiltViewModel(),
     navHostController: NavHostController
 ) {
     LaunchedEffect(Unit) {

@@ -6,7 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltNavGraphViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.sudhindra.composepokedex.activities.DetailsActivity
 import com.sudhindra.composepokedex.constants.BundleKeys
@@ -23,7 +23,7 @@ enum class PokemonScreenType {
 
 @Composable
 fun PokemonUi(
-    pokemonViewModel: PokemonViewModel = hiltNavGraphViewModel(),
+    pokemonViewModel: PokemonViewModel = hiltViewModel(),
     pokemonScreenType: String? = null,
     typeRegionId: Int? = null,
 ) {

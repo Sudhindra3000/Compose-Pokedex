@@ -18,16 +18,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltNavGraphViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.navigate
 import com.sudhindra.composepokedex.ui.components.Placeholder
 import com.sudhindra.composepokedex.viemodel.TypesScreenState
 import com.sudhindra.composepokedex.viemodel.TypesViewModel
 
 @Composable
 fun TypesUi(
-    viewModel: TypesViewModel = hiltNavGraphViewModel(),
+    viewModel: TypesViewModel = hiltViewModel(),
     navHostController: NavHostController
 ) {
     LaunchedEffect(Unit) {

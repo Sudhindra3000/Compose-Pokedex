@@ -8,7 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltNavGraphViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.sudhindra.composepokedex.activities.DetailsActivity
 import com.sudhindra.composepokedex.constants.BundleKeys
 import com.sudhindra.composepokedex.ui.components.Center
@@ -19,7 +19,7 @@ import com.sudhindra.composepokedex.viemodel.FavouritesViewModel
 // TODO: 5/18/2021 "No Pokemon" Text shows in the beginning for a split second
 @Composable
 fun FavouritesUi(
-    viewModel: FavouritesViewModel = hiltNavGraphViewModel()
+    viewModel: FavouritesViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
 
