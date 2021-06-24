@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sudhindra.composepokedex.models.pokemon.Pokemon
@@ -55,7 +56,10 @@ private fun PokemonAboutText(
     value: String
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = value, style = TextStyle(fontSize = 24.sp))
+        Text(
+            text = value, style = TextStyle(fontSize = 24.sp),
+            textAlign = TextAlign.Center
+        )
         Spacer(Modifier.size(6.dp))
         Text(
             text = label,
