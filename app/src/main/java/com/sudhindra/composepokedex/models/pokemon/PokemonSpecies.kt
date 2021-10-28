@@ -18,5 +18,5 @@ data class PokemonSpecies(
             .toInt()
 
     val pokemonSprite: String
-        get() = "https://pokeres.bastionbot.org/images/pokemon/$pokemonId.png"
+        get() = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$pokemonId.png"
 }

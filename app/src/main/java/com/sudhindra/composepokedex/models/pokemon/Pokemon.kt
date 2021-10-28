@@ -22,7 +22,8 @@ data class Pokemon(
         get() = name.splitAndCapitalise()
 
     fun getPokemonSprite(): String =
-        if (pokemonId < 10001) "https://pokeres.bastionbot.org/images/pokemon/$pokemonId.png" else "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$pokemonId.png"
+        /*if (pokemonId < 10001) "https://pokeres.bastionbot.org/images/pokemon/$pokemonId.png" else*/
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$pokemonId.png"
 
     fun abilitiesAsString() = abilities.joinToString { it.ability.name.splitAndCapitalise() }
 
